@@ -1,6 +1,6 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
-    "Description": "AWS CloudFormation Sample Template for CloudWatch Logs.",
+    "Description": "AWS CloudFormation Sample Template for CloudWatch Logs. Modified to deploy into an existing VPC and Subnet",
     "Parameters": {
         "KeyName": {
           "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instances",
@@ -19,6 +19,21 @@
        "OperatorEmail": {
           "Description": "Email address to notify if there are any scaling operations",
           "Type": "String"
+      },
+       "InstanceType": {
+          "Description": "The type and size of the instance",
+          "Type": "String",
+          "Default" : "t2.micro",
+          "AllowedValues": [ "t2.nano", "t2.micro", "t2.small", "t2.medium", "m3.medium", "m3.large" ],
+          "ConstraintDescription": "must be a valid EC2 instance type."
+       },
+       "Subnet": {
+          "Description": "Specify which subnet to launch into",
+          "Type": "AWS::EC2::Subnet::Id"
+       },
+       "VpcId": {
+          "Description": "Specify which VPC to launch into",
+          "Type": "AWS::EC2::VPC::Id"
        }
     },
     "Mappings": {
@@ -115,7 +130,8 @@
             "SecurityGroupIngress" : [
               {"IpProtocol" : "tcp", "FromPort" : "80", "ToPort" : "80", "CidrIp" : "0.0.0.0/0"},
               {"IpProtocol" : "tcp", "FromPort" : "22", "ToPort" : "22", "CidrIp" : { "Ref" : "SSHLocation"}}
-            ]
+            ],
+            "VpcId": { "Ref": "VpcId"}
           }
         },
         "WebServerHost": {
@@ -243,8 +259,12 @@
                 "KeyName": {
                     "Ref": "KeyName"
                 },
-                "InstanceType": "t1.micro",
-                "SecurityGroups": [ { "Ref": "WebServerSecurityGroup" } ],
+                "InstanceType": { 
+                    "Ref": "InstanceType" 
+                },
+                "SubnetId": {
+                    "Ref": "Subnet"
+                },
                 "IamInstanceProfile": { "Ref": "LogRoleInstanceProfile" },
                 "UserData": {
                     "Fn::Base64": {
@@ -277,7 +297,10 @@
                             ]
                         ]
                     }
-                }
+                },
+                "SecurityGroups": [ 
+                    { "Ref": "WebServerSecurityGroup" } 
+                ]
             }
         },
         "WebServerLogGroup": {
