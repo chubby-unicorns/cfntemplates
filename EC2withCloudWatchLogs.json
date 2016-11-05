@@ -340,7 +340,7 @@
             ]
           }
         },
-        "SecurityGroups": [
+        "SecurityGroupIds": [
           {
             "Fn::GetAtt": [ "WebServerSecurityGroup" , "GroupId" ]
           }
