@@ -1,5 +1,5 @@
 # cfntemplates
-_A collection of generic templates I use for testing CloudFormation. This may include yaml and json templates and perhaps even some [cfndsl](https://github.com/stevenjack/cfndsl) snippets._
+A collection of generic templates I use for testing CloudFormation. This may include yaml and json templates and perhaps even some [cfndsl](https://github.com/stevenjack/cfndsl) snippets.
 
 ### EC2withCloudWatchLogs.json:
 From this Snippet in the AWS CloudFormation User Guide:
