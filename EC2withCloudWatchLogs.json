@@ -21,16 +21,11 @@
       "Type": "String"
     },
     "InstanceType": {
-      "Description": "The type and size of the instance",
+      "Description": "The type and size of the instance - this needs to be T2 as the AMIs in the snippet are not HVM and thus won't work with T2",
       "Type": "String",
-      "Default": "t2.micro",
+      "Default": "t1.micro",
       "AllowedValues": [
-        "t2.nano",
-        "t2.micro",
-        "t2.small",
-        "t2.medium",
-        "m3.medium",
-        "m3.large"
+        "t1.micro"
       ],
       "ConstraintDescription": "must be a valid EC2 instance type."
     },
