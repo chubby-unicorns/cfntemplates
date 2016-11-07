@@ -15,7 +15,8 @@
                 "Action": [ "sts:AssumeRole" ]
              } ]
           },
-          "Path": "/"
+          "Path": "/",
+          "RoleName": "RoleFlowLogs"
        }
     },
     "PolicyFlowLogs" : {
