@@ -15,6 +15,7 @@ Resources:
             Action: 
               - "sts:AssumeRole"
       Path: "/"
+      RoleName: "RoleFlowLogs"
   PolicyFlowLogs:
     Type: AWS::IAM::Policy
     Properties:
